@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 
-export default function Home() {
+export default function MovieSearch() {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
@@ -34,36 +34,23 @@ export default function Home() {
       </button>
       <div className="grid grid-cols-2 gap-4 mt-4">
         {movies.map((movie) => (
-          <div
-            key={movie.imdbID}
-            onClick={() => fetchMovieDetails(movie.imdbID)}
-            className="cursor-pointer border p-2"
-          >
-            <Image
-              src={movie.Poster}
-              alt={movie.Title}
-              width={100}
-              height={150}
-            />
-            <h3>
-              {movie.Title} ({movie.Year})
-            </h3>
+          <div key={movie.imdbID} onClick={() => fetchMovieDetails(movie.imdbID)} className="cursor-pointer border p-2">
+            <Image src={movie.Poster !== "N/A" ? movie.Poster : "/placeholder.jpg"} alt={movie.Title} width={100} height={150} />
+            <h3>{movie.Title} ({movie.Year})</h3>
           </div>
         ))}
       </div>
       {selectedMovie && (
         <div className="mt-4 p-4 border">
-          <h2>
-            {selectedMovie.Title} ({selectedMovie.Year})
-          </h2>
-          <p>
-            <strong>Actors:</strong> {selectedMovie.Actors}
-          </p>
-          <p>
-            <strong>Plot:</strong> {selectedMovie.Plot}
-          </p>
+          <h2>{selectedMovie.Title} ({selectedMovie.Year})</h2>
+          <p><strong>Actors:</strong> {selectedMovie.Actors}</p>
+          <p><strong>Plot:</strong> {selectedMovie.Plot}</p>
         </div>
       )}
     </div>
   );
 }
+
+// API Routes
+
+
